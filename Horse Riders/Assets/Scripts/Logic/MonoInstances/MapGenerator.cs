@@ -1,15 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class MapGenerator : MonoBehaviour
 {
     [SerializeField] private Transform mapParent;
     [SerializeField] private List<MapTile> mapTilesPrefabs, startMapTile;
     private List<MapTile> mapTilesOnScene = new List<MapTile>();
+    private GameInstance gameInstance;
 
-    public void OnEnterLoadGameState()
+    public void Load(GameInstance gameInstance)
     {
-        LoadStartMap();
+        this.gameInstance = gameInstance;
+        ClearMap();
         GenerateMap();
     }
 
@@ -17,25 +20,21 @@ public class MapGenerator : MonoBehaviour
     {
         for (int i = 0; i < mapTilesOnScene.Count; i++)
         {
-            if (startMapTile.Contains(mapTilesOnScene[i]))
-            {
-                mapTilesOnScene.Remove(mapTilesOnScene[i]);
-                i -= 1;
-                continue;
-            }
+            if (startMapTile.Contains(mapTilesOnScene[i])) continue;
             mapTilesOnScene[i].setCreateNewTiles = false;
             Destroy(mapTilesOnScene[i].gameObject);
         }
+        for (int i = 0; i < mapTilesOnScene.Count; i++) mapTilesOnScene.Remove(mapTilesOnScene[i]);
         mapTilesOnScene.Clear();
     }
 
-    private void LoadStartMap()
+    private void GenerateStartMap()
     {
         foreach (MapTile _mapTile in startMapTile)
         {
             mapTilesOnScene.Add(_mapTile);
             _mapTile.gameObject.SetActive(true);
-            _mapTile.LoadMapTile();
+            _mapTile.Load(gameInstance);
         }
     }
 
@@ -48,16 +47,13 @@ public class MapGenerator : MonoBehaviour
 
     private void InsertMapTileInScene(MapTile mapTile)
     {
-        if (mapTilesOnScene.Count > 0)
-        {
-            Transform _lastGroundTransform = mapTilesOnScene[mapTilesOnScene.Count - 1].transform;
-            float _lastGroundHalfSizeZ = mapTilesOnScene[mapTilesOnScene.Count - 1].getTriggerCollider.size.z / 2;
-            float _thisGroundHalfSizeZ = mapTile.getTriggerCollider.size.z / 2;
-            mapTile.transform.position = new Vector3(_lastGroundTransform.position.x, 0f, _lastGroundTransform.position.z + _lastGroundHalfSizeZ + _thisGroundHalfSizeZ);
-        }
+        Transform _lastGroundTransform = mapTilesOnScene[mapTilesOnScene.Count - 1].transform;
+        float _lastGroundHalfSizeZ = mapTilesOnScene[mapTilesOnScene.Count - 1].getTriggerCollider.size.z / 2;
+        float _thisGroundHalfSizeZ = mapTile.getTriggerCollider.size.z / 2;
+        mapTile.transform.position = new Vector3(_lastGroundTransform.position.x, 0f, _lastGroundTransform.position.z + _lastGroundHalfSizeZ + _thisGroundHalfSizeZ);
 
         mapTilesOnScene.Add(mapTile);
-        mapTile.LoadMapTile();
+        mapTile.Load(gameInstance);
     }
 
     private void GenerateNewMapTile()
@@ -68,6 +64,7 @@ public class MapGenerator : MonoBehaviour
 
     private void GenerateMap()
     {
+        GenerateStartMap();
         for (int i = 0; i < 3; i++) GenerateNewMapTile();
     }
 

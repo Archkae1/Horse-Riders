@@ -41,13 +41,13 @@ public class LoadGameState : IGameState
 
     private void LoadGameWithoutScreen()
     {
-        playableLines.OnEnterLoadGameState();
-        mapGenerator.OnEnterLoadGameState();
-        player.OnEnterLoadGameState();
-        score.OnEnterLoadGameState();
-        coinBank.OnEnterLoadGameState();
-        music.OnEnterLoadGameState();
-        ui.OnEnterLoadGameState();
+        playableLines.Load();
+        mapGenerator.Load(gameInstance);
+        player.Load();
+        score.Load();
+        coinBank.Load();
+        music.Load();
+        ui.Load();
         gameStateMachine.Enter<ReadyGameState>();
     }
 
@@ -55,25 +55,25 @@ public class LoadGameState : IGameState
     {
         ui.ChangeLoadingStateInfo(0, "Defining Playable Lines");
         yield return null;
-        playableLines.OnEnterLoadGameState();
+        playableLines.Load();
         ui.ChangeLoadingStateInfo(15, "Generating Map");
         yield return null;
-        mapGenerator.OnEnterLoadGameState();
+        mapGenerator.Load(gameInstance);
         ui.ChangeLoadingStateInfo(30, "Preparing Player");
         yield return null;
-        player.OnEnterLoadGameState();
+        player.Load();
         ui.ChangeLoadingStateInfo(45, "Defining Score");
         yield return null;
-        score.OnEnterLoadGameState();
+        score.Load();
         ui.ChangeLoadingStateInfo(60, "Getting Info About Coins");
         yield return null;
-        coinBank.OnEnterLoadGameState();
+        coinBank.Load();
         ui.ChangeLoadingStateInfo(75, "Loading Music");
         yield return null;
-        music.OnEnterLoadGameState();
+        music.Load();
         ui.ChangeLoadingStateInfo(90, "Preparing UI");
         yield return null;
-        ui.OnEnterLoadGameState();
+        ui.Load();
         ui.ChangeLoadingStateInfo(100, "All Complete Successfully!");
         yield return null;
         Debug.Log("All Components Successfully Loaded");

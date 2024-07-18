@@ -8,7 +8,7 @@ public class CoinBank : MonoBehaviour
     [SerializeField] private CoinBankUI inGameCoinBankUI;
     [SerializeField] private CoinBankUI maxCoinBankUI;
 
-    public void OnEnterLoadGameState()
+    public void Load()
     {
         inGameCoinBankUI.LoadCoinBankUI();
         if (PlayerPrefs.HasKey("BankCoins")) bankCoins = PlayerPrefs.GetInt("BankCoins");
@@ -23,18 +23,9 @@ public class CoinBank : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    private void OnPlayerTriggerCoin()
+    public void AddCoin()
     {
         coins++;
         inGameCoinBankUI.ChangeCoinsText(coins);
-    }
-
-    private void OnEnable()
-    {
-        Player.playerTriggerCoin += OnPlayerTriggerCoin;
-    }
-    private void OnDisable()
-    {
-        Player.playerTriggerCoin -= OnPlayerTriggerCoin;
     }
 }

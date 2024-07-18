@@ -26,30 +26,31 @@ public class LoadPlayerState : IPlayerState
 
     public void Enter()
     {
+        LoadComponents();
         player.getInputHandler.DisableInput();
-
+        player.StopMove();
         player.StopAllCoroutines();
         player.transform.DOKill();
         player.transform.position = Vector3.up;
         player.getCowboy.localPosition = new Vector3(0f, -0.2f, 0f);
 
-        playerMover.LoadPlayerMover(playerController, rigidbody);
         playerMover.StopAllCoroutines();
 
-        playerController.LoadPlayerController(rigidbody, playerMover, playerSounds, playerStateMachine);
-
-        playerView.LoadPlayerView();
-
-        playerBoosts.LoadPlayerBoosts();
         Boost.allBoostEnd?.Invoke();
 
-        playerSounds.LoadPlayerSounds();
-
-        player.StopMove();
         playerStateMachine.Enter<IdlePlayerState>();
     }
 
     public void Exit()
+    {
+        playerSounds.Load();
+        playerMover.Load(playerController, rigidbody);
+        playerController.Load(rigidbody, playerMover, playerSounds, playerStateMachine);
+        playerView.Load();
+        playerBoosts.Load();
+    }
+
+    private void LoadComponents()
     {
 
     }

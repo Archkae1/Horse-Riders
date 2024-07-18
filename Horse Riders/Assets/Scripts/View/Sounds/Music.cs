@@ -9,7 +9,7 @@ public class Music : MonoBehaviour
     private float hereToStayVolume = 0.1f;
     private float clavarLaEspadaVolume = 0.15f;
 
-    public void OnEnterLoadGameState()
+    public void Load()
     {
         hereToStay.volume = 0;
         clavarLaEspada.volume = 0;

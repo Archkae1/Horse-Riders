@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class BoostSpawner : MonoBehaviour
 {
-    [SerializeField] private List<Boost> boosts;
+    private Boost[] boosts;
 
-    public void LoadBoosts()
+    public void Load(GameObject pickupablesRoot)
     {
+        boosts = pickupablesRoot.GetComponentsInChildren<Boost>();
         TrySpawnBoosts();
     }
 

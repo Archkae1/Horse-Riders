@@ -15,6 +15,7 @@ public class GameInstance : MonoBehaviour
     private GameStateMachine gameStateMachine;
     private bool isGameLoadedOnce = false;
 
+    public CoinBank getCoinBank => coinBank;
     public bool getIsGameLoadedOnce => isGameLoadedOnce;
     public bool setIsGameLoadedOnce { set { isGameLoadedOnce = value; } }
 
@@ -48,7 +49,6 @@ public class GameInstance : MonoBehaviour
 
     public void GoToMenu()
     {
-        mapGenerator.ClearMap();
         gameStateMachine.ForceEnter<LoadGameState>();
         StartCoroutine(LateReadyGame());
     }
@@ -59,9 +59,7 @@ public class GameInstance : MonoBehaviour
         StartCoroutine(LateStartGame());
     }
 
-    private void EndGame() => gameStateMachine.Enter<EndGameState>();
-
-    private void OnPlayerCollideProp() => EndGame();
+    public void EndGame() => gameStateMachine.Enter<EndGameState>();
 
     private IEnumerator LateStartGame()
     {
@@ -73,16 +71,6 @@ public class GameInstance : MonoBehaviour
     {
         yield return null;
         gameStateMachine.Enter<ReadyGameState>();
-    }
-
-    private void OnEnable()
-    {
-        Player.playerCollideObstacle += OnPlayerCollideProp;
-    }
-
-    private void OnDisable()
-    {
-        Player.playerCollideObstacle -= OnPlayerCollideProp;
     }
 
     private void OnApplicationPause(bool pause)

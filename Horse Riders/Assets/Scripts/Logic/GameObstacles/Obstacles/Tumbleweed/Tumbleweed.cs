@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(TumbleweedMover))]
 public class Tumbleweed : Obstacle
 {
-    private TumbleweedMover tumbleweedMover;
+    [SerializeField] private TumbleweedMover tumbleweedMover;
 
     public override void ActiveAction()
     {
@@ -16,9 +16,8 @@ public class Tumbleweed : Obstacle
         tumbleweedMover.enabled = false;
     }
 
-    public override void LoadObstacle()
+    public override void LoadObstacleComponent()
     {
-        tumbleweedMover = GetComponent<TumbleweedMover>();
         tumbleweedMover.LoadTumbleweedMover();
     }
 }

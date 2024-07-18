@@ -6,25 +6,25 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private Animator horseAnimator;
     [SerializeField] private ParticleSystem pickupFX;
 
-    public void LoadPlayerView()
+    public void Load()
     {
         cowboyAnimator.Play("Idle");
         horseAnimator.Play("Idle");
     }
 
-    public void OnEnterRunPlayerState()
+    public void PlayRunAnimation()
     {
         horseAnimator.Play("Run");
         cowboyAnimator.Play("Run");
     }
 
-    public void OnEnterFallPlayerState()
+    public void PlayEndAnimation()
     {
         horseAnimator.Play("Idle");
         cowboyAnimator.Play("End");
     }
 
-    public void OnPickup()
+    public void PlayPickupFX()
     {
         pickupFX.Play();
     }

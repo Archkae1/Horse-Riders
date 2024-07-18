@@ -21,22 +21,18 @@ public class Player : MonoBehaviour
 
     [Inject] private IInputHandler inputHandler;
 
-    private int obstacleLayer => LayerMask.NameToLayer("Obstacle");
     private int groundLayer => LayerMask.NameToLayer("Ground");
-    private int coinLayer => LayerMask.NameToLayer("Coin");
-    private int boostLayer => LayerMask.NameToLayer("Boost");
+    private int pickupableLayer => LayerMask.NameToLayer("Pickupable");
 
     public Transform getCowboy => cowboy;
     public bool getIsJumping => playerController.getIsJumping;
     public float getSpeed => playerMover.getSpeed;
+    public PlayerSounds getPlayerSounds => playerSounds;
     public PlayerBoosts getPlayerBoosts => playerBoosts;
     public PlayerController getPlayerController => playerController;
     public IInputHandler getInputHandler => inputHandler;
 
-    public static Action playerCollideObstacle, playerTriggerCoin;
-    public static Action<Player> playerTriggerBoost;
-
-    public void OnEnterLoadGameState()
+    public void Load()
     {
         DefineComponents();
         playerStateMachine.Enter<LoadPlayerState>();
@@ -88,27 +84,14 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == groundLayer && playerController.getIsJumping) playerController.CollideGround();
-
-        if (collision.gameObject.layer == obstacleLayer) playerCollideObstacle?.Invoke();
     }
 
     private void OnTriggerEnter(Collider collider)
     {
-        int _colliderLayer = collider.gameObject.layer;
-        if (_colliderLayer == coinLayer || _colliderLayer == boostLayer)
+        if (collider.gameObject.layer == pickupableLayer)
         {
-            if (_colliderLayer == coinLayer)
-            {
-                playerTriggerCoin?.Invoke();
-                playerSounds.OnTriggerCoin();
-            }
-            else
-            {
-                playerTriggerBoost?.Invoke(this);
-                playerSounds.OnTriggerBoost();
-            }
-
-            playerView.OnPickup();
+            Pickupable.triggerPickupable?.Invoke(collider, this);
+            playerView.PlayPickupFX();
             Destroy(collider.gameObject);
         }
     }

@@ -8,7 +8,7 @@ public class PlayerBoosts
 
     public Dictionary<Type, Coroutine> getCoroutines => coroutines;
 
-    public void LoadPlayerBoosts()
+    public void Load()
     {
         coroutines = new Dictionary<Type, Coroutine>()
         {
@@ -16,7 +16,7 @@ public class PlayerBoosts
         };
     }
 
-    public void StartCoroutine(Type type, Coroutine coroutine) => coroutines[type] = coroutine;
+    public void SetDictCoroutine(Type type, Coroutine coroutine) => coroutines[type] = coroutine;
 
-    public void StopCoroutine(Type type) => coroutines[type] = null;
+    public void RemoveDictCoroutine(Type type) => coroutines[type] = null;
 }

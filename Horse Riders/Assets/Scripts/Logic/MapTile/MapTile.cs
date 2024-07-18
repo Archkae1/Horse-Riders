@@ -9,10 +9,12 @@ public class MapTile : MonoBehaviour
     [SerializeField] private BoxCollider triggerCollider;
     [SerializeField] private bool destroyOnTrigger = true;
     [SerializeField] private List<GameObject> staticRoots;
+    [SerializeField] private GameObject pickupablesRoot; 
     private bool createNewTiles = true;
 
     [SerializeField] private ObstaclesContainer obstaclesContainer;
     [SerializeField] private BoostSpawner boostSpawner;
+    private Pickupable[] pickupables;
 
     public bool setCreateNewTiles { set { createNewTiles = value; } }
     public bool setDestroyOnTrigger { set { destroyOnTrigger = value; } }
@@ -21,11 +23,16 @@ public class MapTile : MonoBehaviour
     public static Action<MapTile, bool> outOfTrigger;
     public static Action enterEndGameState;
 
-    public void LoadMapTile()
+    public void Load(GameInstance gameInstance)
     {
-        obstaclesContainer.LoadObstaclesContainer();
-        boostSpawner.LoadBoosts();
+        pickupables = pickupablesRoot.GetComponentsInChildren<Pickupable>();
+        foreach (Pickupable _pickupable in pickupables) _pickupable.Load(gameInstance);
+
+        obstaclesContainer.Load(gameInstance);
+        boostSpawner.Load(pickupablesRoot);
+
         triggerCollider.enabled = true;
+
         foreach(GameObject _staticRoot in staticRoots)
         {
             StartCoroutine(LateCombine(_staticRoot));

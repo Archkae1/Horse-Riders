@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public Line setCurrentLine { set { currentLine = value; } }
     public bool setIsJumping { set { isJumping = value; } }
 
-    public void LoadPlayerController(Rigidbody rigidbody, PlayerMover playerMover, PlayerSounds playerSounds, PlayerStateMachine playerStateMachine)
+    public void Load(Rigidbody rigidbody, PlayerMover playerMover, PlayerSounds playerSounds, PlayerStateMachine playerStateMachine)
     {
         this.rigidbody = rigidbody;
         this.playerMover = playerMover;
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
         {
             rigidbody.AddForce(Vector3.up * jumpForce * 100);
             isJumping = true;
-            playerSounds.OnJump();
+            playerSounds.PlayJumpSound();
             playerStateMachine.Enter<JumpPlayerState>();
         }
     }

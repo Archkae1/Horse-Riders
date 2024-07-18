@@ -12,7 +12,7 @@ public class IdlePlayerState : IPlayerState
     public void Enter()
     {
         player.getInputHandler.DisableInput();
-        playerSounds.OnPause();
+        playerSounds.PauseSound();
         player.PauseMove();
     }
 
@@ -20,6 +20,6 @@ public class IdlePlayerState : IPlayerState
     {
         player.getInputHandler.EnableInput();
         player.StartMove();
-        playerSounds.OnUnpause();
+        playerSounds.UnpauseSound();
     }
 }

@@ -18,7 +18,7 @@ public class PlayerMover : MonoBehaviour
         rigidbody.velocity = new Vector3(rigidbody.velocity.x, rigidbody.velocity.y, speed);
     }
 
-    public void LoadPlayerMover(PlayerController playerController, Rigidbody rigidbody)
+    public void Load(PlayerController playerController, Rigidbody rigidbody)
     {
         this.playerController = playerController;
         this.rigidbody = rigidbody;

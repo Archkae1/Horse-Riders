@@ -21,7 +21,7 @@ public class Score : MonoBehaviour
         scoreUI.ChangeScoreText(score);
     }
 
-    public void OnEnterLoadGameState()
+    public void Load()
     {
         score = 0;
         if (PlayerPrefs.HasKey("MaxScore")) maxScore = PlayerPrefs.GetInt("MaxScore");

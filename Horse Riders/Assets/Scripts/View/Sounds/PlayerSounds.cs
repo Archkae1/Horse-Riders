@@ -8,27 +8,27 @@ public class PlayerSounds : MonoBehaviour
     [SerializeField] private AudioSource coinSource;
     [SerializeField] private AudioSource boostSource;
 
-    public void LoadPlayerSounds() => runSource.Stop();
+    public void Load() => runSource.Stop();
 
-    public void OnTriggerCoin() => coinSource.Play();
+    public void PlayCoinSound() => coinSource.Play();
 
-    public void OnTriggerBoost() => boostSource.Play();
+    public void PlayBoostSound() => boostSource.Play();
 
-    public void OnEnterRunPlayerState() => runSource.Play();
+    public void PlayRunSound() => runSource.Play();
 
-    public void OnJump()
+    public void PlayJumpSound()
     {
         runSource.Stop();
         jumpSource.Play();
     }
 
-    public void OnFall()
+    public void PlayFallSound()
     {
         runSource.Stop();
         fallSource.Play();
     }
 
-    public void OnPause() => runSource.Pause();
+    public void PauseSound() => runSource.Pause();
 
-    public void OnUnpause() => runSource.UnPause();
+    public void UnpauseSound() => runSource.UnPause();
 }

@@ -24,10 +24,11 @@ public class FallPlayerState : IPlayerState
             player.transform.DOMove(new Vector3(player.transform.position.x, 1f, player.transform.position.z), 0.5f);
         player.getCowboy.localPosition = new Vector3(0f, -1.42f, 0f);
         player.StopMove(true);
+
         playerMover.StopAllCoroutines();
-        playerView.OnEnterFallPlayerState();
+        playerView.PlayEndAnimation();
         Boost.allBoostEnd?.Invoke();
-        playerSounds.OnFall();
+        playerSounds.PlayFallSound();
     }
 
     public void Exit()

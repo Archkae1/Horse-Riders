@@ -13,7 +13,7 @@ public class UI : MonoBehaviour
     [SerializeField] private TMP_Text loadingStateText, percentageText;
     [SerializeField] private Slider loadingSlider;
 
-    public void OnEnterLoadGameState()
+    public void Load()
     {
         endPanel.SetActive(false);
         pauseButton.SetActive(true);

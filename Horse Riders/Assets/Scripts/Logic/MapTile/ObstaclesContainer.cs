@@ -5,9 +5,9 @@ public class ObstaclesContainer : MonoBehaviour
 {
     [SerializeField] private List<Obstacle> obstacles;
 
-    public void LoadObstaclesContainer()
+    public void Load(GameInstance gameInstance)
     {
-        foreach (Obstacle _obstacle in obstacles) _obstacle.LoadObstacle();
+        foreach (Obstacle _obstacle in obstacles) _obstacle.Load(gameInstance);
     }
 
     public void ActiveObstacles()

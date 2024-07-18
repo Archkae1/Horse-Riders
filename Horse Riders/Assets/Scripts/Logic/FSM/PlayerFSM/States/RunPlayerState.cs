@@ -11,8 +11,8 @@ public class RunPlayerState : IPlayerState
 
     public void Enter()
     {
-        playerView.OnEnterRunPlayerState();
-        playerSounds.OnEnterRunPlayerState();
+        playerView.PlayRunAnimation();
+        playerSounds.PlayRunSound();
     }
 
     public void Exit()

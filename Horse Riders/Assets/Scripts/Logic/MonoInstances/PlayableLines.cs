@@ -11,7 +11,7 @@ public class PlayableLines : MonoBehaviour
     public Line getMiddleLine { get { return middleLine; } }
     public Line getRightLine { get { return rightLine; } }
 
-    public void OnEnterLoadGameState()
+    public void Load()
     {
         leftLine = new Line(leftLineTransform, LinePosition.LEFT);
         middleLine = new Line(middleLineTransform, LinePosition.MIDDLE);
