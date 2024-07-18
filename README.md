@@ -1,5 +1,6 @@
 # Horse-Riders
-> [!NOTE] style in progres . . .  
+> [!NOTE]
+> style in progres . . .  
 ## Patch Notes:  
 ### Ver. - 1.0.3:  
 - Добавлен полноценный абстрактный класс `Pickupable` для всех предметов на земле.  
