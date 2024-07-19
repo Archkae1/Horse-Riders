@@ -5,20 +5,18 @@ public class LoadGameState : IGameState
 {
     private GameInstance gameInstance;
     private Player player;
-    private MapGenerator mapGenerator;
-    private PlayableLines playableLines;
+    private MapController mapController;
     private Score score;
     private CoinBank coinBank;
     private Music music;
     private UI ui;
     private GameStateMachine gameStateMachine;
 
-    public LoadGameState(GameInstance gameInstance, Player player, MapGenerator mapGenerator, PlayableLines playableLines, Score score, CoinBank coinBank, Music music, UI ui, GameStateMachine gameStateMachine)
+    public LoadGameState(GameInstance gameInstance, Player player, MapController mapController, Score score, CoinBank coinBank, Music music, UI ui, GameStateMachine gameStateMachine)
     {
         this.gameInstance = gameInstance;
         this.player = player;
-        this.mapGenerator = mapGenerator;
-        this.playableLines = playableLines;
+        this.mapController = mapController;
         this.score = score;
         this.coinBank = coinBank;
         this.music = music;
@@ -41,8 +39,7 @@ public class LoadGameState : IGameState
 
     private void LoadGameWithoutScreen()
     {
-        playableLines.Load();
-        mapGenerator.Load(gameInstance);
+        mapController.Load(gameInstance);
         player.Load();
         score.Load();
         coinBank.Load();
@@ -53,25 +50,22 @@ public class LoadGameState : IGameState
 
     private IEnumerator LoadGameWithScreen()
     {
-        ui.ChangeLoadingStateInfo(0, "Defining Playable Lines");
+        ui.ChangeLoadingStateInfo(0, "Generating Map");
         yield return null;
-        playableLines.Load();
-        ui.ChangeLoadingStateInfo(15, "Generating Map");
-        yield return null;
-        mapGenerator.Load(gameInstance);
-        ui.ChangeLoadingStateInfo(30, "Preparing Player");
+        mapController.Load(gameInstance);
+        ui.ChangeLoadingStateInfo(17, "Preparing Player");
         yield return null;
         player.Load();
-        ui.ChangeLoadingStateInfo(45, "Defining Score");
+        ui.ChangeLoadingStateInfo(34, "Defining Score");
         yield return null;
         score.Load();
-        ui.ChangeLoadingStateInfo(60, "Getting Info About Coins");
+        ui.ChangeLoadingStateInfo(51, "Getting Info About Coins");
         yield return null;
         coinBank.Load();
-        ui.ChangeLoadingStateInfo(75, "Loading Music");
+        ui.ChangeLoadingStateInfo(68, "Loading Music");
         yield return null;
         music.Load();
-        ui.ChangeLoadingStateInfo(90, "Preparing UI");
+        ui.ChangeLoadingStateInfo(85, "Preparing UI");
         yield return null;
         ui.Load();
         ui.ChangeLoadingStateInfo(100, "All Complete Successfully!");

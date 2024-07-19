@@ -21,8 +21,6 @@ public abstract class Boost : Pickupable
         player.getPlayerSounds.PlayBoostSound();
     }
 
-    public void SpawnBoost() => gameObject.SetActive(true);
-
     private void StartCoroutineOnPlayer(PlayerBoosts playerBoosts, Type thisType, Player player)
     {
         playerBoosts.SetDictCoroutine(thisType, player.StartCoroutine(StartBoost(playerBoosts)));

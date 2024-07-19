@@ -3937,51 +3937,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 233b230b862737048af21a9549932a0e, type: 3}
---- !u!1 &1291039289
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1291039290}
-  - component: {fileID: 1291039291}
-  m_Layer: 0
-  m_Name: PlayableLines Installer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1291039290
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1291039289}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1933343680}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1291039291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1291039289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1064707b7f44a0e4d9c53823ba218e25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playableLines: {fileID: 1364243662}
 --- !u!1 &1321937359
 GameObject:
   m_ObjectHideFlags: 0
@@ -4095,6 +4050,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1364243660}
+  - component: {fileID: 1364243663}
   - component: {fileID: 1364243661}
   - component: {fileID: 1364243662}
   m_Layer: 0
@@ -4131,10 +4087,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d785f06f6a6c8ee4b91d622f2a76ed6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapParent: {fileID: 1718026752}
+  mapRoot: {fileID: 1718026752}
   mapTilesPrefabs:
   - {fileID: 8713488043223041792, guid: 56f28bb536af8344c80db98b4b6a4de0, type: 3}
   - {fileID: 8713488043223041792, guid: c764fc90eede51f4bb9f9e6f5625d41e, type: 3}
+  - {fileID: 8713488043223041792, guid: dc467e3027346df4ba3e34fc8717224b, type: 3}
   startMapTile:
   - {fileID: 650259141}
 --- !u!114 &1364243662
@@ -4152,6 +4109,20 @@ MonoBehaviour:
   leftLineTransform: {fileID: 994256798}
   middleLineTransform: {fileID: 376034320}
   rightLineTransform: {fileID: 1191082664}
+--- !u!114 &1364243663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364243659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ade4a9824f93ac48be39fa7ca4707d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapGenerator: {fileID: 1364243661}
+  playableLines: {fileID: 1364243662}
 --- !u!1 &1400570889
 GameObject:
   m_ObjectHideFlags: 0
@@ -6100,7 +6071,6 @@ Transform:
   - {fileID: 2137122151}
   - {fileID: 2069280167}
   - {fileID: 777425459}
-  - {fileID: 1291039290}
   - {fileID: 6681306}
   m_Father: {fileID: 1425706871}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6120,11 +6090,10 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 901025788}
   - {fileID: 447651748}
-  - {fileID: 2137122152}
   - {fileID: 2069280168}
   - {fileID: 777425460}
-  - {fileID: 1291039291}
   - {fileID: 6681307}
+  - {fileID: 2137122152}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -6600,7 +6569,7 @@ GameObject:
   - component: {fileID: 2137122151}
   - component: {fileID: 2137122152}
   m_Layer: 0
-  m_Name: MapGenerator Installer
+  m_Name: MapController Installer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6633,7 +6602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ac2e45e33e0c14bb10089bebcf0fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapGenerator: {fileID: 1364243661}
+  mapController: {fileID: 1364243663}
 --- !u!1001 &6691379895177692383
 PrefabInstance:
   m_ObjectHideFlags: 0

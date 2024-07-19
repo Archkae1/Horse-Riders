@@ -9,15 +9,15 @@ public class GameStateMachine
 
     public Type getTypeOfCurrentState { get { return typeOfCurrentState; } }
 
-    public GameStateMachine(GameInstance gameInstance, Player player, MapGenerator mapGenerator, PlayableLines playableLines, Score score, CoinBank coinBank, Music music, UI ui)
+    public GameStateMachine(GameInstance gameInstance, Player player, MapController mapController, Score score, CoinBank coinBank, Music music, UI ui)
     {
         states = new Dictionary<Type, IGameState>()
         {
-            [typeof(LoadGameState)] = new LoadGameState(gameInstance, player, mapGenerator, playableLines, score, coinBank, music, ui, this),
+            [typeof(LoadGameState)] = new LoadGameState(gameInstance, player, mapController, score, coinBank, music, ui, this),
             [typeof(ReadyGameState)] = new ReadyGameState(gameInstance, music, ui),
             [typeof(RunGameState)] = new RunGameState(player, score, music, ui),
             [typeof(PauseGameState)] = new PauseGameState(gameInstance, player, score, music, ui, this),
-            [typeof(EndGameState)] = new EndGameState(player, music, ui, score, coinBank)
+            [typeof(EndGameState)] = new EndGameState(player, mapController, music, ui, score, coinBank)
         };
     }
 

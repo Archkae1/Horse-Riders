@@ -20,12 +20,14 @@ public abstract class Pickupable : MonoBehaviour
         LoadComponents(gameInstance);
     }
 
+    public void EnablePickupable() => root.SetActive(true);
+
     private void OnTriggerPickupable(Collider triggeredSphereCollider, Player player)
     {
         if (triggeredSphereCollider == sphereCollider)
         {
             OnPickup(player);
-            Destroy(root);
+            root.SetActive(false);
         }
     }
 

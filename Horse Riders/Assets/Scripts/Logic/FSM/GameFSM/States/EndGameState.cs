@@ -3,14 +3,16 @@ using UnityEngine;
 public class EndGameState : IGameState
 {
     private Player player;
+    private MapController mapController;
     private Music music;
     private UI ui;
     private Score score;
     private CoinBank coinBank;
 
-    public EndGameState(Player player, Music music, UI ui, Score score, CoinBank coinBank)
+    public EndGameState(Player player, MapController mapController, Music music, UI ui, Score score, CoinBank coinBank)
     {
         this.player = player;
+        this.mapController = mapController;
         this.music = music;
         this.ui = ui;
         this.score = score;
@@ -20,7 +22,7 @@ public class EndGameState : IGameState
     public void Enter()
     {
         Debug.Log("Enter End Game State");
-        MapTile.enterEndGameState?.Invoke();
+        mapController.OnEnterEndGameState();
         player.OnEnterEndGameState();
         score.OnEnterEndGameState();
         coinBank.OnEnterEndGameState();

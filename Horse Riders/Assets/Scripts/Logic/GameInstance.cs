@@ -7,8 +7,7 @@ public class GameInstance : MonoBehaviour
 {
     [SerializeField] private Music music;
     private Player player;
-    private MapGenerator mapGenerator;
-    private PlayableLines playableLines;
+    private MapController mapController;
     private Score score;
     private CoinBank coinBank;
     private UI ui;
@@ -20,11 +19,10 @@ public class GameInstance : MonoBehaviour
     public bool setIsGameLoadedOnce { set { isGameLoadedOnce = value; } }
 
     [Inject]
-    private void Construct(Player player, MapGenerator mapGenerator, PlayableLines playableLines, Score score, CoinBank coinBank, UI ui)
+    private void Construct(Player player, MapController mapController, Score score, CoinBank coinBank, UI ui)
     {
         this.player = player;
-        this.mapGenerator = mapGenerator;
-        this.playableLines = playableLines;
+        this.mapController = mapController;
         this.score = score;
         this.coinBank = coinBank;
         this.ui = ui;
@@ -33,7 +31,7 @@ public class GameInstance : MonoBehaviour
 
     private void Awake()
     {
-        gameStateMachine = new GameStateMachine(this, player, mapGenerator, playableLines, score, coinBank, music, ui);
+        gameStateMachine = new GameStateMachine(this, player, mapController, score, coinBank, music, ui);
         gameStateMachine.Enter<LoadGameState>();
     }
 

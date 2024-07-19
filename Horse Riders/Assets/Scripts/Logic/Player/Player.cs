@@ -92,7 +92,6 @@ public class Player : MonoBehaviour
         {
             Pickupable.triggerPickupable?.Invoke(collider, this);
             playerView.PlayPickupFX();
-            Destroy(collider.gameObject);
         }
     }
 }

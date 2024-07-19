@@ -14,11 +14,17 @@ public class PlayerController : MonoBehaviour
     private PlayerSounds playerSounds;
     private PlayerStateMachine playerStateMachine;
 
-    [Inject] private PlayableLines playableLines;
+    private PlayableLines playableLines;
 
     public bool getIsJumping => isJumping;
     public Line setCurrentLine { set { currentLine = value; } }
     public bool setIsJumping { set { isJumping = value; } }
+
+    [Inject]
+    private void Construct(MapController mapController)
+    {
+        playableLines = mapController.getPlayableLines;
+    }
 
     public void Load(Rigidbody rigidbody, PlayerMover playerMover, PlayerSounds playerSounds, PlayerStateMachine playerStateMachine)
     {
