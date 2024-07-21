@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class PlayerMover : MonoBehaviour
 {
-    [SerializeField, Range(1f, 10f)] private float speed;
+    [SerializeField] private GameSettings gameSettings;
+    private float speed;
     private bool isMovingSide = false;
 
     private new Rigidbody rigidbody;
@@ -11,10 +12,10 @@ public class PlayerMover : MonoBehaviour
 
     public float getSpeed { get { return speed; } }
     public bool getIsMovingSide { get { return isMovingSide; } }
-    public bool setIsMovingSide { set { isMovingSide = value; } }
 
     private void FixedUpdate()
     {
+        speed = gameSettings.playerSpeed;
         rigidbody.velocity = new Vector3(rigidbody.velocity.x, rigidbody.velocity.y, speed);
     }
 
@@ -23,11 +24,12 @@ public class PlayerMover : MonoBehaviour
         this.playerController = playerController;
         this.rigidbody = rigidbody;
         isMovingSide = false;
+        speed = gameSettings.playerSpeed;
     }
 
     private void ApplySideVelocity(float XDirection)
     {
-        rigidbody.velocity = new Vector3(XDirection * speed * 0.86f, rigidbody.velocity.y, rigidbody.velocity.z);
+        rigidbody.velocity = new Vector3(XDirection * 5f, rigidbody.velocity.y, rigidbody.velocity.z);
     }
 
     public IEnumerator MoveToLine(Line targetLine, float currentX)

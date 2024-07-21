@@ -14,6 +14,7 @@ public class GameInstance : MonoBehaviour
     private GameStateMachine gameStateMachine;
     private bool isGameLoadedOnce = false;
 
+    public Type getTypeOfCurrentStateGSM => gameStateMachine.getTypeOfCurrentState;
     public CoinBank getCoinBank => coinBank;
     public bool getIsGameLoadedOnce => isGameLoadedOnce;
     public bool setIsGameLoadedOnce { set { isGameLoadedOnce = value; } }

@@ -70,7 +70,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea7625908c306654ab847b48c229d798, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  gameSettings: {fileID: 11400000, guid: 5dd433fd87f46a943bd4c2e2db5e7a63, type: 2}
+  speed: 6.2
 --- !u!23 &329649791449429479
 MeshRenderer:
   m_ObjectHideFlags: 0

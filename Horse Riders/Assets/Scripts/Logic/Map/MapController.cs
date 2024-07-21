@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class MapController : MonoBehaviour
@@ -27,7 +28,12 @@ public class MapController : MonoBehaviour
 
     private void OnOutOfTrigger(MapTile mapTile)
     {
+        StartCoroutine(LateGenerateMap(mapTile));
+    }
 
+    private IEnumerator LateGenerateMap(MapTile mapTile)
+    {
+        yield return new WaitForSeconds(1f);
         mapGenerator.GenerateNewMapTile();
         mapGenerator.ReleaseOldMapTile(mapTile);
     }

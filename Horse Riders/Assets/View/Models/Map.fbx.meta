@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 815dc6d9f2850a24398bd3e0d3ec37cf
+guid: d1ccc636b64f3df4db6328ff48caea6e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -34,6 +34,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Line
     second: {fileID: 2100000, guid: 1414153f7a0c8ab41a70427ce69548fb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Farm
+    second: {fileID: 2100000, guid: 759bda0839684014da802c08b417916d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

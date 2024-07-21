@@ -12,7 +12,8 @@ public class PlayerBoosts
     {
         coroutines = new Dictionary<Type, Coroutine>()
         {
-            [typeof(ScoreMultiplierBoost)] = null
+            [typeof(ScoreMultiplierBoost)] = null,
+            [typeof(MagnetBoost)] = null
         };
     }
 

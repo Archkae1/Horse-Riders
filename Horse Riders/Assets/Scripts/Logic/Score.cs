@@ -4,11 +4,13 @@ using Zenject;
 
 public class Score : MonoBehaviour
 {
-    [SerializeField, Min(1)] private int baseScoreMultiplier;
+    private int baseScoreMultiplier = 1;
     private int buffMultiplier = 1;
     private int scoreMultiplier;
     private int score = 0;
     private int maxScore = 0;
+
+    public int getScore => score;
 
     [Inject] private Player player;
     [SerializeField] private ScorePanel scoreUI;

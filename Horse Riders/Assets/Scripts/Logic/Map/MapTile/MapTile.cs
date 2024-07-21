@@ -47,7 +47,7 @@ public class MapTile : MonoBehaviour
         triggerCollider = GetComponent<BoxCollider>();
         pickupablesContainer.Load(gameInstance);
         obstaclesContainer.Load(gameInstance);
-        boostsContainer.Load();
+        boostsContainer.Load(gameInstance);
     }
 
     private void OnTriggerExit(Collider collider)

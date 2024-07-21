@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
@@ -73,6 +71,12 @@ public class Player : MonoBehaviour
         playerMover.enabled = false;
     }
 
+    public void TriggerPickupable(Collider collider)
+    {
+        Pickupable.triggerPickupable?.Invoke(collider, this);
+        playerView.PlayPickupFX();
+    }
+
     private void DefineComponents()
     {
         playerBoosts = new PlayerBoosts();
@@ -81,16 +85,12 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == groundLayer && playerStateMachine.getTypeOfCurrentState == typeof(JumpPlayerState)) 
+        if (collision.gameObject.layer == groundLayer && playerController.getIsJumping) 
             playerController.CollideGround();
     }
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.layer == pickupableLayer)
-        {
-            Pickupable.triggerPickupable?.Invoke(collider, this);
-            playerView.PlayPickupFX();
-        }
+        if (collider.gameObject.layer == pickupableLayer) TriggerPickupable(collider);
     }
 }

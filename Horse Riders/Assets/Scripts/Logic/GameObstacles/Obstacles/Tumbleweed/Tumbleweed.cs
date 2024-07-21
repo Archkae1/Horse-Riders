@@ -18,6 +18,6 @@ public class Tumbleweed : Obstacle
 
     public override void LoadObstacleComponent()
     {
-        tumbleweedMover.LoadTumbleweedMover();
+        tumbleweedMover.Load();
     }
 }
