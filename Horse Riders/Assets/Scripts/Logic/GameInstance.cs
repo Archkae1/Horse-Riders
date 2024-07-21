@@ -35,20 +35,16 @@ public class GameInstance : MonoBehaviour
         gameStateMachine.Enter<LoadGameState>();
     }
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonUp(0) && gameStateMachine.getTypeOfCurrentState == typeof(ReadyGameState))
-            StartGame();
-    }
-
     public void StartGame() => gameStateMachine.Enter<RunGameState>();
 
-    public void PauseGame() => gameStateMachine.Enter<PauseGameState>();
+    public void PauseGame()
+    {
+        if (gameStateMachine.getTypeOfCurrentState != typeof(PauseGameState)) gameStateMachine.Enter<PauseGameState>();
+    }
 
     public void GoToMenu()
     {
         gameStateMachine.ForceEnter<LoadGameState>();
-        StartCoroutine(LateReadyGame());
     }
 
     public void RestartGame()
@@ -63,12 +59,6 @@ public class GameInstance : MonoBehaviour
     {
         yield return null;
         StartGame();
-    }
-
-    private IEnumerator LateReadyGame()
-    {
-        yield return null;
-        gameStateMachine.Enter<ReadyGameState>();
     }
 
     private void OnApplicationPause(bool pause)

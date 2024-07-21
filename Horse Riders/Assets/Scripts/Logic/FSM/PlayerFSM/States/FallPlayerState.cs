@@ -20,7 +20,7 @@ public class FallPlayerState : IPlayerState
     {
         player.getInputHandler.DisableInput();
         player.StopAllCoroutines();
-        if (player.getIsJumping) 
+        if (player.getPlayerController.getIsJumping) 
             player.transform.DOMove(new Vector3(player.transform.position.x, 1f, player.transform.position.z), 0.5f);
         player.getCowboy.localPosition = new Vector3(0f, -1.42f, 0f);
         player.StopMove(true);

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -7,6 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField, Range(1f, 10f)] private float jumpForce;
     private bool isJumping = false;
+    private bool isForcedDown = false;
     private Line currentLine;
 
     private Rigidbody rigidbody;
@@ -40,7 +39,6 @@ public class PlayerController : MonoBehaviour
         if (playerStateMachine.getTypeOfCurrentState == typeof(RunPlayerState))
         {
             rigidbody.AddForce(Vector3.up * jumpForce * 100);
-            isJumping = true;
             playerSounds.PlayJumpSound();
             playerStateMachine.Enter<JumpPlayerState>();
         }
@@ -48,18 +46,28 @@ public class PlayerController : MonoBehaviour
 
     public void ChangeLineTo(Line targetLine)
     {
-        if (!playerMover.getIsMovingSide)
-            playerMover.StartCoroutine(playerMover.MoveToLine(targetLine, transform.position.x));
+        playerMover.StartCoroutine(playerMover.MoveToLine(targetLine, transform.position.x));
     }
 
     public void TryChangeLine(int XDirection)
     {
-        if (currentLine.isCanMoveToXDirection(XDirection))
+        if (!playerMover.getIsMovingSide && currentLine.isCanMoveToXDirection(XDirection))
             ChangeLineTo(currentLine.getLineFromXDirection(XDirection, playableLines));
+    }
+
+    public void TryForceDown()
+    {
+        if (!isForcedDown && playerStateMachine.getTypeOfCurrentState == typeof(JumpPlayerState))
+        {
+            if (rigidbody.velocity.y > 0) rigidbody.velocity = new Vector3(rigidbody.velocity.x, 0f, rigidbody.velocity.z);
+            rigidbody.AddForce(-Vector3.up * jumpForce * 100);
+            isForcedDown = true;
+        }
     }
 
     public void CollideGround()
     {
+        isForcedDown = false;
         isJumping = false;
         playerStateMachine.Enter<RunPlayerState>();
     }

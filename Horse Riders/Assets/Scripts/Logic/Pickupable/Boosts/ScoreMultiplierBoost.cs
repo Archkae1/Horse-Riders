@@ -1,4 +1,1 @@
-public class ScoreMultiplierBoost : Boost
-{
-
-}
+public class ScoreMultiplierBoost : Boost { }

@@ -17,7 +17,7 @@ public class PlayerStateMachine
             [typeof(LoadPlayerState)] = new LoadPlayerState(player, rigidbody, playerMover, playerController, playerView, playerBoosts, playerSounds, this),
             [typeof(IdlePlayerState)] = new IdlePlayerState(player, playerSounds),
             [typeof(RunPlayerState)] = new RunPlayerState(playerView, playerSounds),
-            [typeof(JumpPlayerState)] = new JumpPlayerState(),
+            [typeof(JumpPlayerState)] = new JumpPlayerState(playerView, playerController),
             [typeof(FallPlayerState)] = new FallPlayerState(player, playerMover, playerView, playerSounds)
         };
     }

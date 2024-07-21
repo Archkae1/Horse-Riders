@@ -27,7 +27,7 @@ public class PlayerMover : MonoBehaviour
 
     private void ApplySideVelocity(float XDirection)
     {
-        rigidbody.velocity = new Vector3(XDirection * 4.5f, rigidbody.velocity.y, rigidbody.velocity.z);
+        rigidbody.velocity = new Vector3(XDirection * speed * 0.86f, rigidbody.velocity.y, rigidbody.velocity.z);
     }
 
     public IEnumerator MoveToLine(Line targetLine, float currentX)

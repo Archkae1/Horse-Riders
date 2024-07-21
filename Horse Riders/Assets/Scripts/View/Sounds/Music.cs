@@ -6,8 +6,8 @@ public class Music : MonoBehaviour
     [SerializeField] private AudioSource hereToStay;
     [SerializeField] private AudioSource clavarLaEspada;
 
-    private float hereToStayVolume = 0.1f;
-    private float clavarLaEspadaVolume = 0.15f;
+    private float hereToStayVolume = 1f;
+    private float clavarLaEspadaVolume = 1f;
 
     public void Load()
     {
@@ -47,6 +47,14 @@ public class Music : MonoBehaviour
         StartCoroutine(SmoothChangePitch(clavarLaEspada, 0.9f, 1f));
     }
 
+    public void OnChangeMusicVolume(float volume)
+    {
+        hereToStayVolume = volume;
+        clavarLaEspadaVolume = volume;
+        hereToStay.volume = hereToStayVolume;
+        clavarLaEspada.volume = clavarLaEspadaVolume;
+    }
+
     private IEnumerator SmoothChangeVolume(AudioSource audioSource, float targetVolume, float duration)
     {
         float time = 0f;
@@ -72,6 +80,16 @@ public class Music : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
+    }
+
+    private void OnEnable()
+    {
+        SoundsSettings.changeMusicVolume += OnChangeMusicVolume;
+    }
+
+    private void OnDisable()
+    {
+        SoundsSettings.changeMusicVolume -= OnChangeMusicVolume;
     }
 
 

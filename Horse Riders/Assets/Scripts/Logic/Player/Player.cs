@@ -25,7 +25,6 @@ public class Player : MonoBehaviour
     private int pickupableLayer => LayerMask.NameToLayer("Pickupable");
 
     public Transform getCowboy => cowboy;
-    public bool getIsJumping => playerController.getIsJumping;
     public float getSpeed => playerMover.getSpeed;
     public PlayerSounds getPlayerSounds => playerSounds;
     public PlayerBoosts getPlayerBoosts => playerBoosts;
@@ -40,7 +39,7 @@ public class Player : MonoBehaviour
 
     public void OnEnterRunGameState()
     {
-        if (getIsJumping) playerStateMachine.Enter<JumpPlayerState>();
+        if (playerController.getIsJumping) playerStateMachine.Enter<JumpPlayerState>();
         else playerStateMachine.Enter<RunPlayerState>();
     }
 
@@ -60,7 +59,6 @@ public class Player : MonoBehaviour
         rigidbody.velocity = Vector3.zero;
         if (isEnd) capsuleCollider.enabled = false;
         else capsuleCollider.enabled = true;
-        playerController.setIsJumping = false;
     }
 
     public void StartMove()
@@ -83,7 +81,8 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == groundLayer && playerController.getIsJumping) playerController.CollideGround();
+        if (collision.gameObject.layer == groundLayer && playerStateMachine.getTypeOfCurrentState == typeof(JumpPlayerState)) 
+            playerController.CollideGround();
     }
 
     private void OnTriggerEnter(Collider collider)

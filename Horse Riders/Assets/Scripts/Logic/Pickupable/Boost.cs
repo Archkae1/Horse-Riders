@@ -10,7 +10,8 @@ public abstract class Boost : Pickupable
     public int getSpawnChance => spawnChance;
     public int getBoostTime => boostTime;
 
-    public static Action<Type> boostStarted, boostEnded;
+    public static Action<Type, int> boostStart;
+    public static Action<Type> boostEnd;
     public static Action allBoostEnd;
 
     public override void LoadComponents(GameInstance gameInstance) { }
@@ -32,19 +33,16 @@ public abstract class Boost : Pickupable
     {
         PlayerBoosts playerBoosts = player.getPlayerBoosts;
         Type _thisType = GetType(); 
-        if (playerBoosts.getCoroutines[_thisType] == null) StartCoroutineOnPlayer(playerBoosts, _thisType, player);
-        else
-        {
+        if (playerBoosts.getCoroutines[_thisType] != null)
             player.StopCoroutine(playerBoosts.getCoroutines[_thisType]);
-            StartCoroutineOnPlayer(playerBoosts, _thisType, player);
-        }
+        StartCoroutineOnPlayer(playerBoosts, _thisType, player);
     }
 
     private IEnumerator StartBoost(PlayerBoosts playerBoosts)
     {
-        boostStarted?.Invoke(GetType());
-        yield return new WaitForSeconds(getBoostTime);
-        boostEnded?.Invoke(GetType());
+        boostStart?.Invoke(GetType(), boostTime);
+        yield return new WaitForSeconds(boostTime);
+        boostEnd?.Invoke(GetType());
         RemoveCoroutineFromDict(playerBoosts);
     }
 }

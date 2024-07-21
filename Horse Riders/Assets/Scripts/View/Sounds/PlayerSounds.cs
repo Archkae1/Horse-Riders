@@ -2,11 +2,7 @@ using UnityEngine;
 
 public class PlayerSounds : MonoBehaviour 
 {
-    [SerializeField] private AudioSource runSource;
-    [SerializeField] private AudioSource jumpSource;
-    [SerializeField] private AudioSource fallSource;
-    [SerializeField] private AudioSource coinSource;
-    [SerializeField] private AudioSource boostSource;
+    [SerializeField] private AudioSource runSource, jumpSource, fallSource, coinSource, boostSource;
 
     public void Load() => runSource.Stop();
 
@@ -31,4 +27,23 @@ public class PlayerSounds : MonoBehaviour
     public void PauseSound() => runSource.Pause();
 
     public void UnpauseSound() => runSource.UnPause();
+
+    private void OnChangeSoundsVolume(float volume)
+    {
+        runSource.volume = volume;
+        jumpSource.volume = volume;
+        fallSource.volume = volume;
+        coinSource.volume = volume;
+        boostSource.volume = volume;
+    }
+
+    private void OnEnable()
+    {
+        SoundsSettings.changeSoundsVolume += OnChangeSoundsVolume;
+    }
+
+    private void OnDisable()
+    {
+        SoundsSettings.changeSoundsVolume -= OnChangeSoundsVolume;
+    }
 }

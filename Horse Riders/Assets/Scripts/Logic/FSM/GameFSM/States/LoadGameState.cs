@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class LoadGameState : IGameState
 {
+    private UIText uiText;
     private GameInstance gameInstance;
     private Player player;
     private MapController mapController;
@@ -28,8 +29,11 @@ public class LoadGameState : IGameState
     {
         Debug.Log("Enter Load Game State");
         Time.timeScale = 0f;
-        if (gameInstance.getIsGameLoadedOnce) LoadGameWithoutScreen();
-        else gameInstance.StartCoroutine(LoadGameWithScreen());
+        uiText = ui.uiText;
+        if (gameInstance.getIsGameLoadedOnce)
+            OneFrameLoadGame();
+        else
+            gameInstance.StartCoroutine(LoadGame());
     }
 
     public void Exit()
@@ -37,38 +41,41 @@ public class LoadGameState : IGameState
         Debug.Log("Exit Load Game State");
     }
 
-    private void LoadGameWithoutScreen()
+    private void OneFrameLoadGame()
     {
+        ui.Load();
+        uiText = ui.uiText;
         mapController.Load(gameInstance);
         player.Load();
         score.Load();
         coinBank.Load();
         music.Load();
-        ui.Load();
+        Debug.Log("All Components Successfully Loaded");
         gameStateMachine.Enter<ReadyGameState>();
     }
 
-    private IEnumerator LoadGameWithScreen()
+    private IEnumerator LoadGame()
     {
-        ui.ChangeLoadingStateInfo(0, "Generating Map");
-        yield return null;
-        mapController.Load(gameInstance);
-        ui.ChangeLoadingStateInfo(17, "Preparing Player");
-        yield return null;
-        player.Load();
-        ui.ChangeLoadingStateInfo(34, "Defining Score");
-        yield return null;
-        score.Load();
-        ui.ChangeLoadingStateInfo(51, "Getting Info About Coins");
-        yield return null;
-        coinBank.Load();
-        ui.ChangeLoadingStateInfo(68, "Loading Music");
-        yield return null;
-        music.Load();
-        ui.ChangeLoadingStateInfo(85, "Preparing UI");
+        ui.ChangeLoadingStateInfo(0, uiText.loadingUIStateText);
         yield return null;
         ui.Load();
-        ui.ChangeLoadingStateInfo(100, "All Complete Successfully!");
+        uiText = ui.uiText;
+        ui.ChangeLoadingStateInfo(17, uiText.loadingMapStateText);
+        yield return null;
+        mapController.Load(gameInstance);
+        ui.ChangeLoadingStateInfo(34, uiText.loadingPlayerStateText);
+        yield return null;
+        player.Load();
+        ui.ChangeLoadingStateInfo(51, uiText.loadingScoreStateText);
+        yield return null;
+        score.Load();
+        ui.ChangeLoadingStateInfo(68, uiText.loadingCoinsStateText);
+        yield return null;
+        coinBank.Load();
+        ui.ChangeLoadingStateInfo(85, uiText.loadingMusicStateText);
+        yield return null;
+        music.Load();
+        ui.ChangeLoadingStateInfo(100, uiText.successfullLoadingStateText);
         yield return null;
         Debug.Log("All Components Successfully Loaded");
         gameStateMachine.Enter<ReadyGameState>();

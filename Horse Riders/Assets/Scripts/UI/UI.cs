@@ -1,82 +1,64 @@
-using System.Collections;
 using UnityEngine;
-using DG.Tweening;
-using TMPro;
-using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
-    [SerializeField] private GameObject inGameUI, pausePanel, endPanel, pauseButton;
-    [SerializeField] private TMP_Text startingText;
-    
-    [SerializeField] private GameObject menuUI, startText, loadScreen;
-    [SerializeField] private TMP_Text loadingStateText, percentageText;
-    [SerializeField] private Slider loadingSlider;
+    [SerializeField] private MenuPanel menuPanel;
+    [SerializeField] private InGamePanel inGamePanel;
+    [SerializeField] private LoadScreenPanel loadScreenPanel;
+
+    [SerializeField] public UIText uiText;
 
     public void Load()
     {
-        endPanel.SetActive(false);
-        pauseButton.SetActive(true);
-        pausePanel.SetActive(false);
-        inGameUI.SetActive(false);
-        menuUI.SetActive(true);
-        ScaleUp();
+        DefineUIText();
+        menuPanel.Load();
+        inGamePanel.Load();
+        loadScreenPanel.Load();
+    }
+
+    public void DefineUIText()
+    {
+        menuPanel.DefineUIText(uiText);
+        inGamePanel.DefineUIText(uiText);
+        loadScreenPanel.DefineUIText(uiText);
     }
 
     public void OnEnterReadyGameState()
     {
-        loadScreen.SetActive(false);
+        loadScreenPanel.OnEnterReadyGameState();
+        menuPanel.OnEnterReadyGameState();
     }
 
     public void OnEnterRunGameState()
     {
-        startText.transform.DOKill();
-        startText.transform.localScale = Vector3.one;
-        startingText.gameObject.SetActive(false);
-        menuUI.SetActive(false);
-
-        inGameUI.SetActive(true);
+        inGamePanel.OnEnterRunGameState();
+        menuPanel.OnEnterRunGameState();
     }
 
     public void OnEnterPauseGameState()
     {
-        pausePanel.SetActive(true);
+        inGamePanel.OnEnterPauseGameState();
     }
 
     public void OnExitPauseGameState()
     {
-        pausePanel.SetActive(false);
-        startingText.text = "Starts in 3";
-        startingText.gameObject.SetActive(true);
+        inGamePanel.OnExitPauseGameState();
     }
 
     public void OnEnterEndGameState()
     {
-        pauseButton.SetActive(false);
-        StartCoroutine(LateActiveEndPanel());
+        inGamePanel.OnEnterEndGameState();
     }
 
-    public void ChangeStartingText(int seconds)
+    public void ChangeLanguage(UIText uiText)
     {
-        startingText.text = "Starts in " + seconds.ToString();
+        this.uiText = uiText;
+        DefineUIText();
     }
 
-    public void ChangeLoadingStateInfo(int loadingPercent, string loadingStateText)
-    {
-        loadingSlider.value = loadingPercent;
-        percentageText.text = loadingPercent.ToString() + "%";
-        this.loadingStateText.text = loadingStateText;
-    }
+    public void ChangeLoadingStateInfo(int loadingPercent, string loadingStateText) => 
+        loadScreenPanel.ChangeLoadingStateInfo(loadingPercent, loadingStateText);
 
-    private IEnumerator LateActiveEndPanel()
-    {
-        yield return new WaitForSeconds(1.5f);
-        endPanel.SetActive(true);
-    }
-
-    private void ScaleUp() => startText.transform.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 1.2f)
-                                    .OnComplete(ScaleDown);
-
-    private void ScaleDown() => startText.transform.DOScale(Vector3.one, 0.9f)
-                                    .OnComplete(ScaleUp);
+    public void ChangeStartingText(int seconds) =>
+        inGamePanel.ChangeStartingText(seconds, uiText);
 }

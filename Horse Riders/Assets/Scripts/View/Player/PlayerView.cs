@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class PlayerView : MonoBehaviour
@@ -22,6 +23,16 @@ public class PlayerView : MonoBehaviour
     {
         horseAnimator.Play("Idle");
         cowboyAnimator.Play("End");
+    }
+
+    public void PauseHorseAnim()
+    {
+        horseAnimator.speed = 0f;
+    }
+
+    public void UnpauseHorseAnim()
+    {
+        horseAnimator.speed = 1f;
     }
 
     public void PlayPickupFX()

@@ -34,6 +34,7 @@ public class PauseGameState : IGameState
     {
         Debug.Log("Exit Pause Game State");
         ui.OnExitPauseGameState();
+        ui.ChangeStartingText(3);
         gameInstance.StartCoroutine(LateExitPauseGameState());
     }
 

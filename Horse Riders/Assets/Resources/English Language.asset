@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 759feba97149e0742b1cb20dc6427f9b, type: 3}
+  m_Name: English Language
+  m_EditorClassIdentifier: 
+  loadingText: Loading
+  loadingStateText: state text
+  loadingMapStateText: Generating map
+  loadingPlayerStateText: Preparing player
+  loadingScoreStateText: Defining score
+  loadingCoinsStateText: Getting info about coins
+  loadingMusicStateText: Loading music
+  loadingUIStateText: Preparing UI
+  successfullLoadingStateText: All complete successfully!
+  startText: Click to start
+  startingText: 'Starts in '
+  endText: END
+  restartText: PLAY
+  pauseText: PAUSE
+  resumeText: RESUME
+  quitText: QUIT
+  settingsText: SETTINGS
+  languageText: Language
+  musicText: Music
+  soundsText: Sounds
