@@ -5,13 +5,14 @@ using Zenject;
 
 public class GameInstance : MonoBehaviour
 {
-    [SerializeField] private Music music;
     private Player player;
     private MapController mapController;
     private Score score;
     private CoinBank coinBank;
     private UI ui;
     private GameStateMachine gameStateMachine;
+    private Music music;
+    private GameSettingsChanger gameSettingsChanger;
     private bool isGameLoadedOnce = false;
 
     public Type getTypeOfCurrentStateGSM => gameStateMachine.getTypeOfCurrentState;
@@ -32,7 +33,9 @@ public class GameInstance : MonoBehaviour
 
     private void Awake()
     {
-        gameStateMachine = new GameStateMachine(this, player, mapController, score, coinBank, music, ui);
+        music = GetComponent<Music>();
+        gameSettingsChanger = GetComponent<GameSettingsChanger>();
+        gameStateMachine = new GameStateMachine(this, player, mapController, score, coinBank, music, ui, gameSettingsChanger);
         gameStateMachine.Enter<LoadGameState>();
     }
 

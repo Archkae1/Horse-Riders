@@ -782,8 +782,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1111536532}
-        m_TargetAssemblyTypeName: SettingsPanel, Assembly-CSharp
+      - m_Target: {fileID: 422122264}
+        m_TargetAssemblyTypeName: SoundsSettings, Assembly-CSharp
         m_MethodName: OnChangeMusicVolume
         m_Mode: 1
         m_Arguments:
@@ -2965,8 +2965,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1111536532}
-        m_TargetAssemblyTypeName: SettingsPanel, Assembly-CSharp
+      - m_Target: {fileID: 702940273}
+        m_TargetAssemblyTypeName: LanguageSettings, Assembly-CSharp
         m_MethodName: OnChangeLanguage
         m_Mode: 1
         m_Arguments:
@@ -7537,6 +7537,10 @@ MonoBehaviour:
   - {fileID: 8713488043223041792, guid: 56f28bb536af8344c80db98b4b6a4de0, type: 3}
   - {fileID: 8713488043223041792, guid: c764fc90eede51f4bb9f9e6f5625d41e, type: 3}
   - {fileID: 8713488043223041792, guid: dc467e3027346df4ba3e34fc8717224b, type: 3}
+  - {fileID: 8713488043223041792, guid: 8df39db99e6089742829125a1a69d3c4, type: 3}
+  - {fileID: 8713488043223041792, guid: 6d1d0038da394ab49bdea215373e6c5e, type: 3}
+  - {fileID: 8713488043223041792, guid: 1d11b9c2a988b37458f5dbd6a916f589, type: 3}
+  - {fileID: 8713488043223041792, guid: 4008c3262deefc94d818be8f1e145b51, type: 3}
   startMapTile:
   - {fileID: 650259141}
 --- !u!114 &1364243662
@@ -8170,8 +8174,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1111536532}
-        m_TargetAssemblyTypeName: SettingsPanel, Assembly-CSharp
+      - m_Target: {fileID: 422122264}
+        m_TargetAssemblyTypeName: SoundsSettings, Assembly-CSharp
         m_MethodName: OnChangeSoundsVolume
         m_Mode: 1
         m_Arguments:

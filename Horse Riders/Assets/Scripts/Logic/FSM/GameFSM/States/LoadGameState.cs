@@ -12,8 +12,9 @@ public class LoadGameState : IGameState
     private Music music;
     private UI ui;
     private GameStateMachine gameStateMachine;
+    private GameSettingsChanger gameSettingsChanger;
 
-    public LoadGameState(GameInstance gameInstance, Player player, MapController mapController, Score score, CoinBank coinBank, Music music, UI ui, GameStateMachine gameStateMachine)
+    public LoadGameState(GameInstance gameInstance, Player player, MapController mapController, Score score, CoinBank coinBank, Music music, UI ui, GameStateMachine gameStateMachine, GameSettingsChanger gameSettingsChanger)
     {
         this.gameInstance = gameInstance;
         this.player = player;
@@ -23,6 +24,7 @@ public class LoadGameState : IGameState
         this.music = music;
         this.ui = ui;
         this.gameStateMachine = gameStateMachine;
+        this.gameSettingsChanger = gameSettingsChanger;
     }
 
     public void Enter()
@@ -43,6 +45,7 @@ public class LoadGameState : IGameState
 
     private void OneFrameLoadGame()
     {
+        gameSettingsChanger.Load(gameInstance);
         ui.Load();
         uiText = ui.uiText;
         mapController.Load(gameInstance);
@@ -56,6 +59,7 @@ public class LoadGameState : IGameState
 
     private IEnumerator LoadGame()
     {
+        gameSettingsChanger.Load(gameInstance);
         ui.ChangeLoadingStateInfo(0, uiText.loadingUIStateText);
         yield return null;
         ui.Load();
